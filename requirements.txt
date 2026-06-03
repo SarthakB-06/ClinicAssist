@@ -1,5 +1,6 @@
 fastapi
 langchain
 langgraph
-langchain-google-generative-ai
+langchain-google-genai
 streamlit
+ipykernel
