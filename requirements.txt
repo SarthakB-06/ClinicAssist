@@ -1,0 +1,5 @@
+fastapi
+langchain
+langgraph
+langchain-google-generative-ai
+streamlit
