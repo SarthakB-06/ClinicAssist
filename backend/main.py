@@ -7,7 +7,6 @@ import shutil
 from dotenv import load_dotenv
 load_dotenv()  
 
-# Ensure Python can find the agents and backend modules
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from agents.graph import build_discharge_summary_graph
@@ -54,13 +53,10 @@ async def generate_summary_pdf(patient_id: str = Form(...), file: UploadFile = F
         raise HTTPException(status_code=400, detail="File must be a PDF")
         
     try:
-        # 1. Save uploaded file to a temporary file on disk so pdf2image can read it
         with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
             shutil.copyfileobj(file.file, tmp)
             tmp_path = tmp.name
             
-        # 2. Phase 0: PDF Ingestion (Vision OCR)
-        # (Make sure model_name matches what you want to use)
         ingestor = LocalMedicalPDFIngestor(pdf_path=tmp_path, model_name="gemini-2.5-flash") 
         raw_text = ingestor.process_pdf()
         

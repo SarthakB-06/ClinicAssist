@@ -1,6 +1,3 @@
-# ==========================================
-# 1. DEFINE THE OUTPUT SCHEMA (GUARDRAILS)
-# ==========================================
 from pydantic import BaseModel, Field
 from typing import List
 from agents.state import DischargeSummaryState, SourceDocument
@@ -20,9 +17,6 @@ class System2Evaluation(BaseModel):
         description="The updated discharge summary incorporating the missing facts. If no omissions were found, output the original draft exactly."
     )
 
-# ==========================================
-# 2. THE SELF-EVALUATION NODE FUNCTION
-# ==========================================
 def self_evaluation_node(state: DischargeSummaryState) -> dict:
     """
     LangGraph Node: Audits the current draft against raw sources to catch omissions.
@@ -104,7 +98,7 @@ def self_evaluation_node(state: DischargeSummaryState) -> dict:
         error_msg = f"System 2 Node API Failure: {str(e)}"
         print(error_msg)
         return {
-            "is_summary_complete": True, # Force complete on error to prevent infinite loops
+            "is_summary_complete": True,
             "step_execution_trace": state.step_execution_trace + [error_msg]
         }
     
@@ -118,7 +112,7 @@ if __name__ == "__main__":
         patient_id="TEST_001",
         preprocessed_age=45,
         preprocessed_gender="Male",
-        chronological_docs=[], # Normally this would contain SourceDocument objects
+        chronological_docs=[],
         current_draft="The patient was admitted and treated. He is now better and going home.",
         self_eval_iteration=0,
         max_eval_cycles=3,

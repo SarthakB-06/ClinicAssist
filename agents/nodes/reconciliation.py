@@ -1,13 +1,8 @@
-# ==========================================
-# 1. DEFINE THE OUTPUT SCHEMA (GUARDRAILS)
-# ==========================================
 from pydantic import BaseModel, Field
 from typing import List
 from agents.state import DischargeSummaryState, SourceDocument
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
-# from agents.nodes.extractor import current_state
-# from agents.nodes.extractor import state_updates
 
 class ReconciliationFlag(BaseModel):
     medication_name: str = Field(description="The name of the medication involved in the discrepancy.")
@@ -22,17 +17,12 @@ class ReconciliationAndDraft(BaseModel):
         description="The drafted discharge summary formatted in clean Markdown."
     )
 
-# ==========================================
-# 2. THE RECONCILIATION NODE FUNCTION
-# ==========================================
 def reconciliation_node(state: DischargeSummaryState) -> dict:
     """
     LangGraph Node: Drafts the initial summary and audits medication changes.
     """
     print("--- [NODE: RECONCILIATION & GENERATION] ---")
     
-    # Initialize the LLM (Using a stronger reasoning model here is recommended, e.g., GPT-4o)
-    # llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash") # If using Gemini
     llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.0) 
     structured_llm = llm.with_structured_output(ReconciliationAndDraft)
     

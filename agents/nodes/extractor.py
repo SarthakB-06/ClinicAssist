@@ -26,8 +26,6 @@ def extraction_node(state: DischargeSummaryState) -> dict:
     """
     print("--- [NODE: EXTRACTION] ---")
     
-    # Initialize the LLM (Using GPT-4o-mini or your local equivalent for fast extraction)
-    # llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash") # If using Gemini
     llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.0) 
     
     # Enforce the Pydantic schema
@@ -70,7 +68,7 @@ def extraction_node(state: DischargeSummaryState) -> dict:
             "discharge_medications": [med.model_dump() for med in result.discharge_medications],
             "resolved_diagnoses": result.resolved_diagnoses,
             "pending_or_missing_fields": result.pending_or_missing_fields,
-            "step_execution_trace": [trace_msg] # Append to trace log
+            "step_execution_trace": [trace_msg]
         }
         
     except Exception as e:
@@ -81,7 +79,6 @@ def extraction_node(state: DischargeSummaryState) -> dict:
         }
 
 
-# --- ADD THIS LINE BEFORE YOUR TESTING BLOCK ---
 if __name__ == "__main__":
     # 1. Load the text you saved from Phase 0
     with open("patient_2_raw_transcript.txt", "r", encoding="utf-8") as f:

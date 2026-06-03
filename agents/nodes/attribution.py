@@ -1,6 +1,3 @@
-# ==========================================
-# 1. DEFINE THE OUTPUT SCHEMA (GUARDRAILS)
-# ==========================================
 from pydantic import BaseModel, Field
 from typing import List
 from agents.state import DischargeSummaryState, SourceDocument, SourceMappingTable
@@ -13,9 +10,6 @@ class AttributionLedger(BaseModel):
         description="A sequential list mapping every sentence in the summary to its source documents."
     )
 
-# ==========================================
-# 2. THE ATTRIBUTION NODE FUNCTION
-# ==========================================
 def attribution_node(state: DischargeSummaryState) -> dict:
     """
     LangGraph Node: Maps every sentence in the final draft back to the source document IDs.

@@ -5,7 +5,6 @@ import uuid
 
 class ClinicalDocumentParser:
     def __init__(self):
-        # Heuristics based on the messy OCR structure
         self.doc_divider_pattern = re.compile(
             r"(CLINICAL PATHOLOGY REPORT|NURSES NOTES|CONSULTATION SHEET|DRUG CHART|ADMISSION RECORD|DISCHARGE CHECK LIST|ER OBSERVATION CHART)", 
             re.IGNORECASE
@@ -27,7 +26,6 @@ class ClinicalDocumentParser:
     def parse_raw_text(self, patient_id: str, raw_text: str) -> Dict[str, Any]:
         """Segments raw OCR text and extracts deterministic metadata."""
         
-        # 1. Deterministic Metadata Extraction
         dob_match = self.dob_pattern.search(raw_text)
         admit_match = self.admit_date_pattern.search(raw_text)
         gender_match = self.gender_pattern.search(raw_text)
@@ -38,11 +36,9 @@ class ClinicalDocumentParser:
             
         gender = gender_match.group(1).capitalize() if gender_match else "Unknown"
 
-        # 2. Document Chunking
         chunks = self.doc_divider_pattern.split(raw_text)
         documents = []
         
-        # Handle preamble before the first recognized header
         if chunks[0].strip():
             documents.append({
                 "doc_id": str(uuid.uuid4()),
@@ -51,7 +47,6 @@ class ClinicalDocumentParser:
                 "raw_content": chunks[0].strip()
             })
             
-        # Iterate through headers and their corresponding content
         for i in range(1, len(chunks), 2):
             doc_type = chunks[i].strip().upper()
             content = chunks[i+1].strip() if i+1 < len(chunks) else ""
@@ -60,7 +55,7 @@ class ClinicalDocumentParser:
                 documents.append({
                     "doc_id": str(uuid.uuid4()),
                     "doc_type": doc_type,
-                    "timestamp": admit_match.group(1) if admit_match else "Unknown", # Can be enhanced to find local timestamps
+                    "timestamp": admit_match.group(1) if admit_match else "Unknown",
                     "raw_content": content
                 })
 

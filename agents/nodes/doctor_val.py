@@ -1,6 +1,3 @@
-# ==========================================
-# 1. DEFINE THE OUTPUT SCHEMA (GUARDRAILS)
-# ==========================================
 from pydantic import BaseModel, Field
 from typing import List
 from agents.state import DischargeSummaryState
@@ -15,9 +12,6 @@ class DoctorEditFeedback(BaseModel):
         description="List of 2-3 specific formatting or clinical rules derived from the edits made, to teach the AI for next time."
     )
 
-# ==========================================
-# 2. HELPER: LEVENSHTEIN DISTANCE
-# ==========================================
 def calculate_levenshtein_reward(silver: str, gold: str) -> float:
     """Calculates Levenshtein distance and normalizes it to a 0.0 - 1.0 reward score."""
     if len(silver) < len(gold):
@@ -38,13 +32,9 @@ def calculate_levenshtein_reward(silver: str, gold: str) -> float:
     distance = previous_row[-1]
     max_len = max(len(silver), len(gold))
     
-    # Normalize to a reward: 1.0 means identical (perfect), 0.0 means completely different
     reward = 1.0 - (distance / max_len)
     return round(reward, 4)
 
-# ==========================================
-# 3. THE DOCTOR EVALUATION NODE FUNCTION
-# ==========================================
 def doctor_evaluation_node(state: DischargeSummaryState) -> dict:
     """
     LangGraph Node: Simulates a doctor editing the draft, calculates the edit distance reward, 
@@ -97,9 +87,6 @@ def doctor_evaluation_node(state: DischargeSummaryState) -> dict:
             "step_execution_trace": state.step_execution_trace + [error_msg]
         }
 
-# ==========================================
-# 4. TESTING BLOCK (Guarded)
-# ==========================================
 if __name__ == "__main__":
     import json
     mock_state = DischargeSummaryState(
