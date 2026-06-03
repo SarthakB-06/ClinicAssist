@@ -4,3 +4,5 @@ langgraph
 langchain-google-genai
 streamlit
 ipykernel
+pdf2image
+pillow
