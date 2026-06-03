@@ -4,6 +4,8 @@ import sys
 import os
 import tempfile
 import shutil
+from dotenv import load_dotenv
+load_dotenv()  
 
 # Ensure Python can find the agents and backend modules
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -39,7 +41,8 @@ async def generate_summary_text(payload: GenerateRequest):
             "draft": final_state.get("current_draft"),
             "flags": final_state.get("reconciliation_escalation_flags", []),
             "trace": final_state.get("step_execution_trace", []),
-            "ledger": final_state.get("source_attribution_ledger", [])
+            "ledger": final_state.get("source_attribution_ledger", []),
+            "reward": final_state.get("calculated_edit_distance_reward", 0.0)
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -83,7 +86,8 @@ async def generate_summary_pdf(patient_id: str = Form(...), file: UploadFile = F
             "draft": final_state.get("current_draft"),
             "flags": final_state.get("reconciliation_escalation_flags", []),
             "trace": final_state.get("step_execution_trace", []),
-            "ledger": final_state.get("source_attribution_ledger", [])
+            "ledger": final_state.get("source_attribution_ledger", []),
+            "reward": final_state.get("calculated_edit_distance_reward", 0.0)
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

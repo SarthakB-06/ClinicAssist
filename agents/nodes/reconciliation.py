@@ -49,14 +49,33 @@ def reconciliation_node(state: DischargeSummaryState) -> dict:
     If NO clear clinical reason is documented, you MUST flag it in the `reconciliation_flags`. Do not invent a reason.
     
     TASK 2: DRAFT THE SUMMARY
-    Write a structured discharge summary using the following Markdown sections:
+    Write a structured discharge summary. You MUST use strict Markdown formatting. 
+    CRITICAL: You MUST use double newlines (\n\n) between EVERY section header and EVERY bullet point so it renders correctly on a web page. Do not mash text together.
+    
+    Format exactly like this:
     ## 1. Patient Demographics & Admission/Discharge Dates
+    * **Patient Age:** [Value]
+    * **Patient Gender:** [Value]
+    * **Admission Date:** [Value]
+    * **Discharge Date:** [Value]
+    
     ## 2. Diagnoses (Principal and Secondary)
+    [Bullet points...]
+    
     ## 3. Hospital Course
-    ## 4. Discharge Medications (Clearly note changes from admission)
+    [Paragraph...]
+    
+    ## 4. Discharge Medications
+    [Bullet points noting changes from admission...]
+    
     ## 5. Pending Results
+    [Bullet points...]
+    
     ## 6. Follow-up Instructions
+    [Bullet points...]
+    
     ## 7. Discharge Condition
+    [Paragraph...]
     
     CRITICAL RULE: If a required field cannot be sourced, explicitly mark it as "Not Documented / Pending Review".
     """

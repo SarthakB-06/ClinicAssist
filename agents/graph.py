@@ -1,11 +1,12 @@
 from langgraph.graph import StateGraph, END
 from agents.state import DischargeSummaryState
 
-# Import your node functions from their respective files
+
 from agents.nodes.extractor import extraction_node
 from agents.nodes.reconciliation import reconciliation_node
 from agents.nodes.self_eval import self_evaluation_node
 from agents.nodes.attribution import attribution_node
+from agents.nodes.doctor_val import doctor_evaluation_node # <-- IMPORT THE NEW NODE
 
 def evaluation_router(state: DischargeSummaryState) -> str:
     if state.is_summary_complete:
@@ -19,6 +20,7 @@ def build_discharge_summary_graph():
     workflow.add_node("reconciliation", reconciliation_node)
     workflow.add_node("self_evaluation", self_evaluation_node)
     workflow.add_node("attribution", attribution_node)
+    workflow.add_node("doctor_evaluation", doctor_evaluation_node) # <-- ADD IT HERE
 
     workflow.set_entry_point("extraction")
     workflow.add_edge("extraction", "reconciliation")
@@ -32,6 +34,6 @@ def build_discharge_summary_graph():
             "attribution": "attribution"          
         }
     )
-    
-    workflow.add_edge("attribution", END)
+    workflow.add_edge("attribution", "doctor_evaluation")
+    workflow.add_edge("doctor_evaluation", END)    
     return workflow.compile()

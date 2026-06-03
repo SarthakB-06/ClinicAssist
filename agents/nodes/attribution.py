@@ -6,8 +6,6 @@ from typing import List
 from agents.state import DischargeSummaryState, SourceDocument, SourceMappingTable
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
-from agents.nodes.self_eval import audit_updates
-from agents.nodes.extractor import current_state
 
 
 class AttributionLedger(BaseModel):

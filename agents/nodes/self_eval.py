@@ -60,8 +60,9 @@ def self_evaluation_node(state: DischargeSummaryState) -> dict:
     1. Set 'found_omissions' to True.
     2. List the specific missing facts in 'omission_details'.
     3. Rewrite the draft in 'revised_draft' to seamlessly weave in these missing facts.
+       CRITICAL: When rewriting the draft, you MUST strictly preserve the Markdown formatting. Use double newlines (\n\n) between all bullet points and section headers.
     
-    If the draft captures all critical data accurately, set 'found_omissions' to False and return the original draft.
+    If the draft captures all critical data accurately, set 'found_omissions' to False and return the original draft exactly as it is formatted.
     DO NOT hallucinate data. Only use facts present in the raw clinical notes.
     """
     
