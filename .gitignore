@@ -12,3 +12,4 @@ data/
 .env
 notebooks/patient_2_raw_transcript.txt
 patient_2_raw_transcript.txt
+patient-1.txt

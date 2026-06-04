@@ -69,3 +69,94 @@ graph TD
     classDef agent fill:#2196F3,stroke:#0D47A1,color:white
     class B,C api
     class D,E,F,G,H agent
+
+
+## 🛠️ Tech Stack
+- **Orchestration**: LangGraph, LangChain
+- **LLM**: GEMINI
+- **OCR**: PD2Image, Gemini Vision Model
+- **Frontend**: Streamlit
+- **Backend**: FastAPI
+- **Data Processing**: Pydantic, Pandas
+- **AI Tools**: LangChain, LangGraph
+
+
+ClinicAssist/
+ ┣ 📂 agents/                 # Core LangGraph Architecture
+ ┃ ┣ 📂 nodes/                # Individual Agent Functions
+ ┃ ┣ 📜 graph.py              # Compiles nodes into the state machine
+ ┃ ┗ 📜 state.py              # Pydantic state schemas
+ ┣ 📂 backend/                # API and Data Processing
+ ┃ ┣ 📂 services/
+ ┃ ┃ ┣ 📜 document_parser.py  # Chunks raw text and assigns DOC_IDs
+ ┃ ┃ ┗ 📜 pdf_ingestor.py     # Vision-based OCR for PDFs
+ ┃ ┗ 📜 main.py               # FastAPI application
+ ┣ 📂 frontend/
+ ┃ ┗ 📜 app.py                # Streamlit Dashboard UI
+ ┣ 📜 .env                    # Environment variables (API Keys)
+ ┣ 📜 requirements.txt        # Python dependencies
+ ┗ 📜 README.md
+
+
+## 🚀 Getting Started
+
+### Prerequisites
+- **Python 3.10+**
+- **Poppler**: Required for PDF-to-image conversion.
+  - **Windows**: Download [Poppler](https://github.com/oschwartz10612/poppler-windows/releases/) and add the `bin` directory to your system's PATH.
+  - **macOS**: `brew install poppler`
+  - **Linux**: `sudo apt-get install poppler-utils`
+- **Google API Key**: You need a Google API key with Gemini API access.
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/ClinicAssist.git
+cd ClinicAssist
+```
+
+### 2. Set up the Environment
+Create and activate a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+```
+
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Configure Environment Variables
+Create a `.env` file in the root directory and add your Google API key:
+```
+GOOGLE_API_KEY="YOUR_API_KEY_HERE"
+```
+
+### 5. Run the Application
+The application consists of a FastAPI backend and a Streamlit frontend. Run them in separate terminals.
+
+**Terminal 1: Start the Backend**
+```bash
+uvicorn backend.main:app --reload
+```
+The API will be available at `http://127.0.0.1:8000`.
+
+**Terminal 2: Start the Frontend**
+```bash
+streamlit run frontend/app.py
+```
+The Streamlit dashboard will open in your browser at `http://localhost:8501`.
+
+## 📖 Usage
+1.  **Launch the Streamlit App**: Open your browser to `http://localhost:8501`.
+2.  **Upload a Document**: Use the file uploader to select a patient record (PDF or text file).
+3.  **Start Processing**: Click the "Generate Discharge Summary" button.
+4.  **Review the Output**: The application will display the generated summary, highlighting key information, medication reconciliation flags, and source attribution for each data point.
+
+## 📄 License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## 🤝 Contributing
+Contributions are welcome! Please feel free to submit a pull request or open an issue.
+
+

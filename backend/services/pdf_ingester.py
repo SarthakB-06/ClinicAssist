@@ -97,9 +97,9 @@ class LocalMedicalPDFIngestor:
 
             testing_pages = pages[:5]
             print(
-                f"Limiting transcription to first {len(testing_pages)} pages for testing...")
+                f"Limiting transcription to first {len(pages)} pages for testing...")
 
-            for i, page in enumerate(testing_pages):
+            for i, page in enumerate(pages):
                 print(
                     f"Transcribing page {i+1}/{len(pages)} using {self.model_name}...")
 
@@ -110,8 +110,8 @@ class LocalMedicalPDFIngestor:
                 page_text = self.transcribe_page(img_bytes, i + 1)
                 full_transcript.append(f"--- PAGE {i+1} ---\n{page_text}")
 
-            for page in pages[5:]:
-                page.close()
+            # for page in pages[5:]:
+            #     page.close()
 
         print("All pages processed successfully.")
 
