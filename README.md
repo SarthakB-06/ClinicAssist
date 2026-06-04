@@ -80,7 +80,7 @@ graph TD
 - **Data Processing**: Pydantic, Pandas
 - **AI Tools**: LangChain, LangGraph
 
-
+```
 ClinicAssist/
  ┣ 📂 agents/                 # Core LangGraph Architecture
  ┃ ┣ 📂 nodes/                # Individual Agent Functions
@@ -96,7 +96,7 @@ ClinicAssist/
  ┣ 📜 .env                    # Environment variables (API Keys)
  ┣ 📜 requirements.txt        # Python dependencies
  ┗ 📜 README.md
-
+```
 
 ## 🚀 Getting Started
 
@@ -110,7 +110,7 @@ ClinicAssist/
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/ClinicAssist.git
+git clone https://github.com/SarthakB-06/ClinicAssist.git
 cd ClinicAssist
 ```
 
