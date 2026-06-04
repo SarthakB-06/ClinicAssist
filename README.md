@@ -69,6 +69,7 @@ graph TD
     classDef agent fill:#2196F3,stroke:#0D47A1,color:white
     class B,C api
     class D,E,F,G,H agent
+```
 
 ## 🛠️ Tech Stack
 - **Orchestration**: LangGraph, LangChain
