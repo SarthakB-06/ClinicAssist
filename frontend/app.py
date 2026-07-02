@@ -55,7 +55,7 @@ with col_input:
                         data = {"patient_id": patient_id}
 
                         response = requests.post(
-                            "http://localhost:8000/api/v1/generate_summary_from_pdf",
+                            "/api/v1/generate_summary_from_pdf",
                             files=files,
                             data=data
                         )
@@ -76,7 +76,7 @@ with col_input:
                 with st.spinner("Agent pipeline running... (Extraction ➔ Reconciliation ➔ Audit ➔ Attribution)"):
                     try:
                         response = requests.post(
-                            "http://localhost:8000/api/v1/generate_summary_from_text",
+                            "/api/v1/generate_summary_from_text",
                             json={"patient_id": patient_id,
                                   "raw_text": raw_text}
                         )

@@ -91,7 +91,7 @@ class LocalMedicalPDFIngestor:
                 fmt="jpeg",
                 thread_count=4,
                 output_folder=temp_dir,
-                poppler_path=r"C:\Users\Sarth\Downloads\poppler-26.02.0\Library\bin"
+                # poppler_path=r"C:\Users\Sarth\Downloads\poppler-26.02.0\Library\bin"
             )
             print(f"Converted {len(pages)} pages.")
 
